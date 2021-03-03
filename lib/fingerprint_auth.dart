@@ -28,6 +28,7 @@ class FingerprintAuth {
     }
   }
 
+  // Authenticate with biometrics
   Future<bool> authenticate() async {
     bool authenticated = false;
     try {

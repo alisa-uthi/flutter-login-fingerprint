@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:login_fingerprint/custom_btn.dart';
 import 'package:login_fingerprint/fingerprint_auth.dart';
 import 'package:login_fingerprint/home_screen.dart';
 
@@ -93,29 +94,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   SizedBox(height: 30),
-                  Container(
-                    width: double.infinity,
-                    child: RaisedButton(
-                      onPressed: _authenticate,
-                      elevation: 0,
-                      color: Color(0xFF04A5ED),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 24,
-                        ),
-                        child: Text(
-                          "Authenticate",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+                  CustomBtn(
+                    text: "Authenticate",
+                    onPressed: _authenticate,
                   )
                 ],
               ),
