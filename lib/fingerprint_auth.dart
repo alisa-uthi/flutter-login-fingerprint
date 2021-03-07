@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:tuple/tuple.dart';
 
 class FingerprintAuth {
   LocalAuthentication auth = LocalAuthentication();
@@ -29,17 +30,19 @@ class FingerprintAuth {
   }
 
   // Authenticate with biometrics
-  Future<bool> authenticate() async {
+  Future<Tuple2<bool, String>> authenticate() async {
     bool authenticated = false;
     try {
-      authenticated = await auth.authenticateWithBiometrics(
-          localizedReason: "Scan your finger print to authenticate",
-          useErrorDialogs: true,
-          stickyAuth: false);
-      return authenticated;
+      authenticated = await auth.authenticate(
+        localizedReason: "Scan your finger print to authenticate",
+        useErrorDialogs: true,
+        stickyAuth: false,
+        biometricOnly: true,
+      );
+      return Tuple2(authenticated, null);
     } on PlatformException catch (e) {
-      print(e);
-      return authenticated;
+      print(e.message);
+      return Tuple2(authenticated, e.message);
     }
   }
 }

@@ -11,8 +11,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final FingerprintAuth _auth = FingerprintAuth();
-  bool _canCheckBiometric;
-  List<BiometricType> _availableBiometric;
+  bool _canCheckBiometric = false;
+  List<BiometricType> _availableBiometric = [];
+  String _errorMessage;
 
   @override
   void initState() {
@@ -43,15 +44,19 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _authenticate() async {
-    bool authenticate = await _auth.authenticate();
+    final authenticate = await _auth.authenticate();
 
     if (!mounted) return;
 
-    if (authenticate) {
+    if (authenticate.item1) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => HomeScreen()),
       );
+    } else {
+      setState(() {
+        _errorMessage = authenticate.item2;
+      });
     }
   }
 
@@ -94,10 +99,33 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   SizedBox(height: 30),
-                  CustomBtn(
-                    text: "Authenticate",
-                    onPressed: _authenticate,
-                  )
+                  if (_canCheckBiometric &&
+                      _availableBiometric.contains(BiometricType.fingerprint))
+                    CustomBtn(
+                      text: "Authenticate",
+                      onPressed: _authenticate,
+                    )
+                  else
+                    Text(
+                      'The fingerprint biometric is not available in this device.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  if (_errorMessage != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Text(
+                        _errorMessage,
+                        style: TextStyle(
+                          color: Colors.red[300],
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                 ],
               ),
             )
