@@ -12,7 +12,6 @@ class FingerprintAuth {
       canCheckBiometric = await auth.canCheckBiometrics;
       return canCheckBiometric;
     } on PlatformException catch (e) {
-      print(e);
       return false;
     }
   }
@@ -24,7 +23,6 @@ class FingerprintAuth {
       availableBiometric = await auth.getAvailableBiometrics();
       return availableBiometric;
     } on PlatformException catch (e) {
-      print(e);
       return [];
     }
   }
@@ -41,7 +39,6 @@ class FingerprintAuth {
       );
       return Tuple2(authenticated, null);
     } on PlatformException catch (e) {
-      print(e.message);
       return Tuple2(authenticated, e.message);
     }
   }
