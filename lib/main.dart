@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Login Fingerprint',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xFF3C3E52),
+        scaffoldBackgroundColor: Color(0xFF312c51),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: LoginScreen(),

@@ -18,7 +18,7 @@ class CustomBtn extends StatelessWidget {
       child: RaisedButton(
         onPressed: onPressed,
         elevation: 0,
-        color: Color(0xFF04A5ED),
+        color: Color(0xFF719fb0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),

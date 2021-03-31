@@ -25,8 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void _checkBiometric() async {
     bool canCheckBiometric = await _auth.checkBiometric();
 
-    if (!mounted) return;
-
     setState(() {
       _canCheckBiometric = canCheckBiometric;
     });
@@ -36,8 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
     List<BiometricType> availableBiometric =
         await _auth.getAvailableBiometrics();
 
-    if (!mounted) return;
-
     setState(() {
       _availableBiometric = availableBiometric;
     });
@@ -46,10 +42,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void _authenticate() async {
     final authenticate = await _auth.authenticate();
 
-    if (!mounted) return;
-
     if (authenticate.item1) {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => HomeScreen()),
       );
